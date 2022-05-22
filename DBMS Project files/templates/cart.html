@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+cart
+{% endblock title %}
+
+{% block body %}
+
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+<table class="table">
+    <thead class="thead-dark"> 
+      <tr>
+        <th scope="col">Order-id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Address</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">EDIT</th>
+        <th scope="col">DELETE</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for post in query %}
+    
+      <tr>
+        <th scope="row">{{post.pid}}</th>
+        <td>{{post.pname}}</td>
+        <td>{{post.quantity}}</td>
+        <td>{{post.address}}</td>
+        <td>{{post.email}}</td>
+        <td>{{post.phone}}</td>
+        <td><a href="/edit/{{post.pid}}"><button class="btn btn-success">Edit </button> </a> </td>
+        <td><a href="/delete/{{post.pid}}"><button onclick="return confirm('Are you sure to Delete data');" class="btn btn-danger">Delete </button> </a> </td>
+        </tr>
+
+{% endfor %}
+
+
+    </tbody>
+  </table>
+
+{% endblock  %}
